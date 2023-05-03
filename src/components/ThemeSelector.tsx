@@ -7,7 +7,7 @@ type SupportedThemes = (typeof themes)[number];
 
 function ThemeSelector(): JSX.Element {
   const [selectedTheme, setSelectedTheme] = useState<SupportedThemes>("light");
-  console.log({ selectedTheme });
+
   return (
     <>
       <Helmet>
