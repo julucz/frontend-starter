@@ -1,3 +1,4 @@
 body {
   color: var(--color);
+  background: var(--background);
 }
