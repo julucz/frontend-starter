@@ -4,9 +4,9 @@ import { useUser } from "../hooks/users";
 function User(): JSX.Element {
   const { userId } = useParams();
 
-  const { data, error, isError, isLoading } = useUser(userId);
+  const { data, error, isError, isLoading } = useUser(userId || "");
 
-  if (isLoading) {
+  if (!userId || isLoading) {
     return <div>Loading …</div>;
   }
 
@@ -18,6 +18,7 @@ function User(): JSX.Element {
     <div>
       <h1>{data.name}</h1>
       <Link to="/">Home</Link>
+      <Link to="/users">Users</Link>
     </div>
   );
 }
