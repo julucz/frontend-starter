@@ -1,12 +1,20 @@
 import { Link, useParams } from "react-router-dom";
 import { useUser } from "../hooks/users";
+import { z } from "zod";
+
+const paramsSchema = z.object({
+  userId: z.string(),
+});
+
+type Params = z.infer<typeof paramsSchema>;
 
 function User(): JSX.Element {
-  const { userId } = useParams();
+  const params = useParams<Params>();
+  const { userId } = paramsSchema.parse(params);
 
-  const { data, error, isError, isLoading } = useUser(userId || "");
+  const { data, error, isError, isLoading } = useUser(userId);
 
-  if (!userId || isLoading) {
+  if (isLoading) {
     return <div>Loading …</div>;
   }
 
