@@ -6,7 +6,9 @@ const themes = ["light", "dark"] as const;
 type SupportedThemes = (typeof themes)[number];
 
 function ThemeSelector(): JSX.Element {
-  const [selectedTheme, setSelectedTheme] = useState<SupportedThemes>("light");
+  const [selectedTheme, setSelectedTheme] = useState<SupportedThemes>(
+    (localStorage.getItem("theme") as SupportedThemes) || "light"
+  );
 
   return (
     <>
@@ -18,10 +20,21 @@ function ThemeSelector(): JSX.Element {
         name="themes"
         id="themes"
         // TODO: Change the entire toggle select component, the casting cannot stay :)
-        onChange={(e) => setSelectedTheme(e.target.value as SupportedThemes)}
+        onChange={(e) => {
+          setSelectedTheme(e.target.value as SupportedThemes);
+          localStorage.setItem("theme", e.target.value);
+        }}
       >
         {themes.map((theme) => (
-          <option key={theme}>{theme}</option>
+          <>
+            {theme === selectedTheme ? (
+              <option key={theme} selected>
+                {theme}
+              </option>
+            ) : (
+              <option key={theme}>{theme}</option>
+            )}
+          </>
         ))}
       </select>
     </>
