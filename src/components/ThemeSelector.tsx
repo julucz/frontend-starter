@@ -1,14 +1,12 @@
-import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { useLocalStorage } from "react-use";
 
 // should be the same as names of the files in /public/themes
 const themes = ["light", "dark"] as const;
 type SupportedThemes = (typeof themes)[number];
 
 function ThemeSelector(): JSX.Element {
-  const [selectedTheme, setSelectedTheme] = useState<SupportedThemes>(
-    (localStorage.getItem("theme") as SupportedThemes) || "light"
-  );
+  const [selectedTheme, setSelectedTheme] = useLocalStorage<SupportedThemes>("theme", "light");
 
   return (
     <>
@@ -19,11 +17,7 @@ function ThemeSelector(): JSX.Element {
       <select
         name="themes"
         id="themes"
-        // TODO: Change the entire toggle select component, the casting cannot stay :)
-        onChange={(e) => {
-          setSelectedTheme(e.target.value as SupportedThemes);
-          localStorage.setItem("theme", e.target.value);
-        }}
+        onChange={(e) => setSelectedTheme(e.target.value as SupportedThemes)}
       >
         {themes.map((theme) => (
           <>
