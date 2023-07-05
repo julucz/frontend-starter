@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./components/App";
 import "./index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ThemeSelector from "./components/ThemeSelector";
 
 const queryClient = new QueryClient();
 
