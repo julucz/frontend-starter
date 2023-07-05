@@ -7,7 +7,7 @@ type SupportedThemes = (typeof themes)[number];
 
 function ThemeSelector(): JSX.Element {
   const [selectedTheme, setSelectedTheme] = useLocalStorage<SupportedThemes>("theme", "light");
-
+  // TODO: sync with system preferences whether light or dark by default
   return (
     <>
       <Helmet>

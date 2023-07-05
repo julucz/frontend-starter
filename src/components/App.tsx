@@ -3,6 +3,7 @@ import About from "../pages/About";
 import Home from "../pages/Home";
 import Users from "../pages/Users";
 import User from "../pages/User";
+import ThemeSelector from "./ThemeSelector";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
 function App(): JSX.Element {
   return (
     <>
+      <ThemeSelector />
       <RouterProvider router={router} />
     </>
   );
