@@ -1,13 +1,17 @@
 import { Helmet } from "react-helmet";
 import { useLocalStorage } from "react-use";
 
-// should be the same as names of the files in /public/themes
+// Should be the same as names of the files in /public/themes
 const themes = ["light", "dark"] as const;
 type SupportedThemes = (typeof themes)[number];
 
 function ThemeSelector(): JSX.Element {
-  const [selectedTheme, setSelectedTheme] = useLocalStorage<SupportedThemes>("theme", "light");
-  // TODO: sync with system preferences whether light or dark by default
+  const doesPreferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const [selectedTheme, setSelectedTheme] = useLocalStorage<SupportedThemes>(
+    "theme",
+    doesPreferDark ? "dark" : "light"
+  );
+
   return (
     <>
       <Helmet>
